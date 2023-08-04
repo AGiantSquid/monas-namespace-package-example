@@ -1,2 +1,2 @@
 def func_c():
-    print('hello from lib_c func_c, edit')
+    print('hello from acme.lib_c, func_c')

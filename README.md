@@ -1,7 +1,7 @@
 # monas-namespace-package-example
 Example demonstrating how to use [monas](https://github.com/frostming/monas) to set up a mono-repo of packages that are scoped to a namespace.
 
-## Overview 
+## Overview
 
 In this project, there are 3 packages that all belong to the `acme` package namespace:
 
@@ -13,9 +13,11 @@ In this project, there are 3 packages that all belong to the `acme` package name
 
 They can be installed together, or separately.
 
-Some of these packages depend on each other. 
+Some of these packages depend on each other.
 `acme-lib-a` depends on `acme-lib-b`, and `acme-lib-b` in turn depends on `acme-lib-c`.
 monas can handle transitive dependencies, so installing `acme-lib-a` will also install `acme-lib-b` and `acme-lib-c`.
+
+monas installs all local dependencies in "editable" mode, so any changes made on disk will be reflected immediately when running the code locally.
 
 ## Namespace packages
 
@@ -50,7 +52,7 @@ Each package is named with kebab-casing to conform to the Python packaging norma
 
 To install all packages, run `monas install`
 
-This will create a .venv in the root of each of the three projects, with the necessary dependencies installed for each environment. 
+This will create a .venv in the root of each of the three projects, with the necessary dependencies installed for each environment installed in the .venv in "editable" mode.
 
 To only install one package, run `monas install --include acme-lib-c`
 
@@ -61,5 +63,7 @@ To use a package, cd into the project root directory, activate the virtual envir
 ```
 cd acme-lib-a
 source .venv/bin/activate
-python -c "import acme.lib_a"
+python -c "from acme.lib_a import func_a; func_a()"
 ```
+
+Any changes made to either `acme-lib-b` or `acme-lib-c` will be reflected when running the code for `acme-lib-a`.
